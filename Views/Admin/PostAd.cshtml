@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Selling Point</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/modern-business.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+            $(document).ready(function () {
+            $('#postBtn1').on('click', function () {
+                alert("Add Posted");
+            });
+        });
+    </script>
+    <!-- Navigation -->
+    
+    <div class="container">
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Post An Add
+                    <small></small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        @*<a href="../../Home/Index">Home</a>*@
+                        @Html.ActionLink("Home", "../Home/Index")
+
+
+                    </li>
+                    <li class="active">Contact</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Map Column -->
+            <div class="col-md-8 col-sm-push-3">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3></h3>
+                        <form name="sentMessage" enctype="multipart/form-data" action="../../Poster/PostAdSubmit/@ViewBag.id" method="post" id="contactForm" novalidate>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    @*<label>Title:</label>*@
+                                    @Html.Label("Title:")
+
+                                    <input type="text" class="form-control" name="Title" id="title1" required data-validation-required-message="Please enter your name.">
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    
+                                    @Html.Label("Category:")
+                                    
+                                    <select name="Category" class="form-control">
+                                        <option value="Mobile">Mobile</option>
+                                        <option value="Laptop">Laptop</option>
+                                        <option value="Books">Books</option>
+                                        <option value="House">House</option>
+                                        <option value="Car">Car</option>
+                                        <option value="Motor Bike">Motor Bike</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    @*<label>Description:</label>*@
+                                    @Html.Label("Description:")
+                                    <input type="text" class="form-control" name="Description" id="desc1" >
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    @*<label>Price:</label>*@
+                                    @Html.Label("Price:")
+                                    @Html.TextBox("Price", "", new { @class = "form-control",@typeof="tel"})
+                                    @*<input type="tel" class="form-control" name="Price" id="price1" >*@
+                                </div>
+                            </div>
+
+
+
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    @*<label>Mobile #</label>*@
+                                    @Html.Label("Mobile #")
+                                    @*<input type="text" class="form-control" name="MobileNo" id="mob1">*@
+                                    @Html.TextBox("MobileNo", "", new { @class =  "form-control" })
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    @*<label>Email:</label>*@
+                                    @Html.Label("Email:")
+                                    @*<input type="tel" class="form-control" name="Email" id="email1" >*@
+                                    @Html.TextBox("Email", "", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <script>
+                                function funct() {
+
+
+
+                                    //var x = $('#stateSelector').val();
+                                    var x = document.getElementById("stateSelector").selectedIndex;
+                                    
+                                    //$('#citySelector').remove();
+                                    $('#citySelector').empty();
+                                    
+                                    
+                                    $.getJSON('/Admin/GetCities?stateID=' + (x+1), function (d) {
+                                        var x = d[0];
+                                        //alert(d);
+                                        for (var i = 1 ; i < x ; i++) {
+                                            
+                                            
+                                            $('#citySelector').append("<option value=" + d[i] + ">" + d[i] + "</option>");
+                                            
+                                        
+                                        }
+                                    });
+                                 
+                                }
+
+
+
+                            </script>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    
+                                    @Html.Label("State:")
+                                    
+                                    <select name="State" onchange="funct()" id="stateSelector" class="form-control">
+                                        <option id="1" value="Punjab">Punjab</option>
+                                        <option id="2" value="Sindh">Sindh</option>
+                                        <option id="3" value="KPK">Khyber Pakhtunkhwa</option>
+                                        <option id="4" value="Balochistan">Balochistan</option>
+                                    </select>
+                                    @*@Html.TextBox("State", "", new { @class = "form-control" })*@
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    
+                                    @Html.Label("City:")
+                                    
+                                    @*@Html.TextBox("City", "", new { @class = "form-control" })*@
+                                    <select name="City" id="citySelector" class="form-control">
+                                        <option value="Lahore">Lahore</option>
+                                        <option value="Faisalabad">Faisalabad</option>
+                                        <option value="Rawalpindi">Rawalpindi</option>
+                                        @*<option value="Multan">Multan</option>
+                                        <option value="Gujranwala">Gujranwala</option>*@
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    @*<label>Upload Image:</label>*@
+                                    @Html.Label("Upload Image:")
+                                    <input type="file" name="picture" id="pass1" >
+                                </div>
+                            </div>
+
+
+
+
+                            <div id="success"></div>
+                            <!-- For success/fail messages -->
+                            <button type="submit" id="postBtn1" class="btn btn-block">Post Ad</button>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+            @*<!-- Contact Details Column -->
+            <div class="col-md-4">
+                <h3>Contact Details</h3>
+                <p>
+                    Taha Muhammad<br>
+                </p>
+                <p>
+                    <i class="fa fa-phone"></i>
+                    <abbr title="Phone">P</abbr>: 0320 4858850
+                </p>
+                <p>
+                    <i class="fa fa-envelope-o"></i>
+                    <abbr title="Email">E</abbr>: <a href="mailto:name@example.com">bsef12a053@pucit.edu.pk</a>
+                </p>
+                <p>
+                    <i class="fa fa-clock-o"></i>
+                    <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
+                </p>
+                <ul class="list-unstyled list-inline list-social-icons">
+                    <li>
+                        <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Contact Form -->*@
+        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+        <!-- /.row -->
+        
+        <!-- Footer -->
+        @*<footer>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr>        
+                    <p>Copyright &copy; Taha Muhammad 2015</p>
+                </div>
+            </div>
+        </footer>*@
+    </div>
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Contact Form JavaScript -->
+    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <script src="~/Scripts/jqBootstrapValidation.js"></script>
+    <script src="~/Scripts/contact_me.js"></script>
+        </div>
+</body>
+</html>
